@@ -1,8 +1,12 @@
+import "./App.css"
+import EmployeeDashboard from "./EmployeeDashboard"
+
 function App() {
   return (
-    <>
-      <h1>AG Grid Dashboard</h1>
-    </>
+    <div>
+      <h1>Employee Management Dashboard</h1>
+      <EmployeeDashboard />
+    </div>
   )
 }
 

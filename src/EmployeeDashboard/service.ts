@@ -1,0 +1,131 @@
+import type { ColDef, ValueFormatterParams } from "ag-grid-community"
+import type { Employee } from "./employeeData"
+import {
+  EmailCellRenderer,
+  DepartmentCellRenderer,
+  StatusCellRenderer,
+  SkillsCellRenderer,
+  ManagerCellRenderer,
+  PerformanceCellRenderer,
+} from "./CellRenderer"
+
+export const getColumnDefs = (): ColDef<Employee>[] => [
+  {
+    field: "id",
+    headerName: "ID",
+    width: 60,
+    pinned: "left",
+  },
+  {
+    field: "firstName",
+    headerName: "First Name",
+    width: 120,
+    sortable: true,
+    filter: true,
+  },
+  {
+    field: "lastName",
+    headerName: "Last Name",
+    width: 120,
+    sortable: true,
+    filter: true,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 220,
+    sortable: true,
+    filter: true,
+    cellRenderer: EmailCellRenderer,
+  },
+  {
+    field: "department",
+    headerName: "Department",
+    width: 130,
+    sortable: true,
+    filter: "agSetColumnFilter",
+    cellRenderer: DepartmentCellRenderer,
+  },
+  {
+    field: "position",
+    headerName: "Position",
+    width: 180,
+    sortable: true,
+    filter: true,
+  },
+  {
+    field: "salary",
+    headerName: "Salary",
+    width: 120,
+    sortable: true,
+    filter: "agNumberColumnFilter",
+    valueFormatter: (params: ValueFormatterParams<Employee>) =>
+      `$${params.value.toLocaleString()}`,
+    cellClass: "text-right",
+  },
+  {
+    field: "age",
+    headerName: "Age",
+    width: 80,
+    sortable: true,
+    filter: "agNumberColumnFilter",
+    cellClass: "text-center",
+  },
+  {
+    field: "location",
+    headerName: "Location",
+    width: 120,
+    sortable: true,
+    filter: "agSetColumnFilter",
+  },
+  {
+    field: "hireDate",
+    headerName: "Hire Date",
+    width: 130,
+    sortable: true,
+    filter: "agDateColumnFilter",
+    valueFormatter: (params: ValueFormatterParams<Employee>) =>
+      new Date(params.value).toLocaleDateString(),
+  },
+  {
+    field: "performanceRating",
+    headerName: "Performance",
+    width: 130,
+    sortable: true,
+    filter: "agNumberColumnFilter",
+    cellRenderer: PerformanceCellRenderer,
+  },
+  {
+    field: "projectsCompleted",
+    headerName: "Projects",
+    width: 100,
+    sortable: true,
+    filter: "agNumberColumnFilter",
+    cellClass: "text-center",
+  },
+  {
+    field: "isActive",
+    headerName: "Status",
+    width: 100,
+    sortable: true,
+    filter: "agSetColumnFilter",
+    cellRenderer: StatusCellRenderer,
+  },
+  {
+    field: "skills",
+    headerName: "Skills",
+    width: 200,
+    filter: true,
+    valueFormatter: (params: ValueFormatterParams<Employee>) =>
+      Array.isArray(params.value) ? params.value.join(", ") : "",
+    cellRenderer: SkillsCellRenderer,
+  },
+  {
+    field: "manager",
+    headerName: "Manager",
+    width: 140,
+    sortable: true,
+    filter: true,
+    cellRenderer: ManagerCellRenderer,
+  },
+]
